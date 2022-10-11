@@ -6,19 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.accident.service.AccidentService;
 
-@ThreadSafe
 @Controller
-public class IndexController {
-
+@ThreadSafe
+public class AccidentController {
     private final AccidentService accidentService;
 
-    public IndexController(AccidentService accidentService) {
+    public AccidentController(AccidentService accidentService) {
         this.accidentService = accidentService;
     }
 
-    @GetMapping("/index")
-    public String index(Model model) {
+    @GetMapping("/accidents")
+    public String accidents(Model model) {
         model.addAttribute("accidents", accidentService.findAll());
-        return "index";
+        return "accidents";
     }
 }
