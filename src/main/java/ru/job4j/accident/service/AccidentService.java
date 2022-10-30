@@ -18,7 +18,7 @@ public class AccidentService {
         return accidentMem.findAll();
     }
 
-    public void add(Accident accident) {
+    public void create(Accident accident) {
         accidentMem.add(accident);
     }
 

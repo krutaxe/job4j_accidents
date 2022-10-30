@@ -17,45 +17,26 @@ import ru.job4j.accident.service.AccidentService;
 public class AccidentController {
     private final AccidentService accidentService;
 
-    @GetMapping("/accidents")
-    public String accidents(Model model) {
-        model.addAttribute("accidents", accidentService.findAll());
-        return "accidents";
-    }
-
-    @GetMapping("/addAccident")
+    @GetMapping("/formCreateAccident")
     public String viewCreateAccident() {
         return "createAccident";
     }
 
     @PostMapping("/saveAccident")
-    public String saveAccident(@ModelAttribute Accident accident) {
-        accidentService.add(accident);
+    public String add(@ModelAttribute Accident accident) {
+        accidentService.create(accident);
         return "redirect:/index";
     }
 
-    @GetMapping("/updateAccident")
-    public String viewUpdateAccident() {
-        return "editAccident";
-    }
-
-    @PostMapping("/editAccident")
-    public String update(@ModelAttribute Accident accident) {
-        accident.setId(accidentService.findById(accident.getId()).getId());
-        accidentService.update(accident);
-        return "redirect:/accidents";
-    }
-
     @GetMapping("/formUpdateAccident")
-    public String update(@RequestParam("id") int id, Model model) {
-        model.addAttribute("accident", accidentService.findById(id).getId());
-        System.out.println(accidentService.findById(id).getId());
-        return "accidents";
+    public String update(@RequestParam(value = "id") int id, Model model) {
+        model.addAttribute("acc", accidentService.findById(id));
+        return "editAccident";
     }
 
     @PostMapping("/updateAccident")
     public String save(@ModelAttribute Accident accident) {
-        accidentService.add(accident);
-        return "redirect:/formUpdateAccident";
+        accidentService.update(accident);
+        return "redirect:/index";
     }
 }

@@ -25,7 +25,6 @@ public class AccidentMem {
     }
 
     public Collection<Accident> findAll() {
-        System.out.println(accidents.values());
         return accidents.values();
     }
 
@@ -35,7 +34,7 @@ public class AccidentMem {
     }
 
     public void update(Accident accident) {
-        accidents.replace(accident.getId(), accident);
+        accidents.put(accident.getId(), accident);
     }
 
     public Accident findById(int id) {

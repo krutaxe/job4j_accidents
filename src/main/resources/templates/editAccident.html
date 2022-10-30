@@ -19,37 +19,62 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" th:href="@{/index}">Главная</a>
-                <a class="nav-item nav-link" th:href="@{/accidents}">Инциденты</a>
-                <a class="nav-item nav-link" th:href="@{/addAccident}">Добавить Инцидент</a>
-                <a class="nav-item nav-link active" th:href="@{/updateAccident}">Изменить Инцидент</a>
+<!--                <a class="nav-item nav-link" th:href="@{/accidents}">Инциденты</a>-->
+<!--                <a class="nav-item nav-link" th:href="@{/addAccident}">Добавить Инцидент</a>-->
+<!--                <a class="nav-item nav-link active" th:href="@{/updateAccident}">Изменить Инцидент</a>-->
             </div>
         </div>
     </nav>
     <div class="row pt-3">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Изменить инцидент
+                Редатирование инцидента
             </div>
             <div class="card-body">
-                <form th:action="@{/editAccident}" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="0"/>
+                <form th:action="@{/updateAccident}" method="POST" th:object="${acc}">
+                    <input type="hidden" name="id" th:field="*{id}"/>
                     <div class="form-group">
-                        <label for="name">Название Инцидента</label>
-                        <input type="text" class="form-control" name="name" id="name">
+                        <label for="name">Имя</label>
+                        <input type="text" class="form-control" name="name" id="name" th:field="*{name}">
                     </div>
                     <div class="form-group">
-                        <label for="name">Описания</label>
-                        <input type="text" class="form-control" name="text" id="text">
+                        <label for="name">Имя</label>
+                        <input type="text" class="form-control" name="name" id="text" th:field="*{text}">
                     </div>
                     <div class="form-group">
-                        <label for="name">Адресс</label>
-                        <input type="text" class="form-control" name="address" id="address">
+                        <label for="name">Имя</label>
+                        <input type="text" class="form-control" name="name" id="address" th:field="*{address}">
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>
         </div>
     </div>
+<!--    <div class="row pt-3">-->
+<!--        <div class="card" style="width: 100%">-->
+<!--            <div class="card-header">-->
+<!--                Изменить инцидент-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <form th:action="@{/updateAccident}" method="POST" enctype="multipart/form-data">-->
+<!--                    <input type="hidden" name="id" value="0"/>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="name">Название Инцидента</label>-->
+<!--                        <input type="text" class="form-control" name="name" id="name">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="name">Описания</label>-->
+<!--                        <input type="text" class="form-control" name="text" id="text">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="name">Адресс</label>-->
+<!--                        <input type="text" class="form-control" name="address" id="address">-->
+<!--                    </div>-->
+<!--                    <button type="submit" class="btn btn-primary mt-3">Изменить</button>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 </body>
 </html>
