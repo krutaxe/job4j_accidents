@@ -19,10 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" th:href="@{/index}">Главная</a>
-<!--                <a class="nav-item nav-link" th:href="@{/accidents}">Инциденты</a>-->
                 <a class="nav-item nav-link" th:href="@{/formCreateAccident}">Добавить Инцидент</a>
-<!--                <a class="nav-item nav-link" th:href="@{/updateAccident}">Изменить Инцидент</a>-->
-<!--                <a class="nav-item nav-link" th:href="@{/formUpdateAccident}">formUpdateAccident</a>-->
             </div>
         </div>
     </nav>
@@ -33,6 +30,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Название Нарушения</th>
                 <th scope="col">Тип</th>
+                <th scope="col">Статья</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Адрес</th>
                 <th scope="col">Действия</th>
@@ -43,6 +41,7 @@
                 <td th:text="${accident.id}"/>
                 <td th:text="${accident.name}"/>
                 <td th:text="${accident.type.name}"/>
+                <td th:text="${accident.rules}"/>
                 <td th:text="${accident.text}"/>
                 <td th:text="${accident.address}"/>
                 <td>
