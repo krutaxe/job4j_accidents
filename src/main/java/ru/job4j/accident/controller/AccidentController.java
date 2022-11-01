@@ -14,7 +14,6 @@ import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.service.AccidentService;
 import ru.job4j.accident.service.AccidentTypeService;
 import ru.job4j.accident.service.RuleService;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -24,7 +23,6 @@ import java.util.*;
 public class AccidentController {
     private final AccidentService accidentService;
     private final AccidentTypeService accidentTypeService;
-
     private final RuleService ruleService;
 
     public List<Rule> getRuleList(HttpServletRequest request) {
