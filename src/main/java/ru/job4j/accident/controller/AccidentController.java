@@ -40,8 +40,6 @@ public class AccidentController {
                       HttpServletRequest request) {
         AccidentType type = accidentTypeService.finById(id);
         String[] ids = request.getParameterValues("rIds");
-        accident.setRules(ruleService.finByIds(ids, ruleService.findAll()));
-        accident.setType(type);
         accidentService.create(accident);
         return "redirect:/index";
     }
@@ -62,8 +60,6 @@ public class AccidentController {
                        HttpServletRequest request) {
         AccidentType type = accidentTypeService.finById(id);
         String[] ids = request.getParameterValues("rIds");
-        accident.setType(type);
-        accident.setRules(ruleService.finByIds(ids, ruleService.findAll()));
         accidentService.update(accident);
         return "redirect:/index";
     }
