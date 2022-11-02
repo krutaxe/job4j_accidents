@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.repository.RuleMem;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -12,7 +11,7 @@ import java.util.List;
 public class RuleService {
     private final RuleMem ruleMem;
 
-    public Collection<Rule> findAll() {
+    public List<Rule> findAll() {
         return ruleMem.findAll();
     }
 

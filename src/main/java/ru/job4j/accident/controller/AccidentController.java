@@ -25,16 +25,6 @@ public class AccidentController {
     private final AccidentTypeService accidentTypeService;
     private final RuleService ruleService;
 
-    public List<Rule> getRuleList(HttpServletRequest request) {
-        String[] ids = request.getParameterValues("rIds");
-        List<Rule> rules = List.of(
-                new Rule(1, "Статья. 1"),
-                new Rule(2, "Статья. 2"),
-                new Rule(3, "Статья. 3")
-        );
-        return  ruleService.finByIds(ids, rules);
-    }
-
     @GetMapping("/formCreateAccident")
     public String viewCreateAccident(Model model) {
         Collection<AccidentType> types = accidentTypeService.findAll();
@@ -49,7 +39,8 @@ public class AccidentController {
                       @RequestParam("type.id") int id,
                       HttpServletRequest request) {
         AccidentType type = accidentTypeService.finById(id);
-        accident.setRules(getRuleList(request));
+        String[] ids = request.getParameterValues("rIds");
+        accident.setRules(ruleService.finByIds(ids, ruleService.findAll()));
         accident.setType(type);
         accidentService.create(accident);
         return "redirect:/index";
@@ -70,8 +61,9 @@ public class AccidentController {
                        @RequestParam("type.id") int id,
                        HttpServletRequest request) {
         AccidentType type = accidentTypeService.finById(id);
+        String[] ids = request.getParameterValues("rIds");
         accident.setType(type);
-        accident.setRules(getRuleList(request));
+        accident.setRules(ruleService.finByIds(ids, ruleService.findAll()));
         accidentService.update(accident);
         return "redirect:/index";
     }
