@@ -18,7 +18,7 @@ public class RuleService {
         return ruleMem.findAll();
     }
 
-    public List<Rule> finByIds(String[] ids, Map<Integer, Rule> rules) {
-        return ruleMem.finByIds(ids, rules);
+    public List<Rule> finByIds(String[] ids) {
+        return ruleMem.finByIds(ids);
     }
 }

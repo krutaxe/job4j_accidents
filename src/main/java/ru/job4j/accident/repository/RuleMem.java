@@ -19,7 +19,7 @@ public class RuleMem {
         return rules;
     }
 
-    public List<Rule> finByIds(String[] ids, Map<Integer, Rule> rules) {
+    public List<Rule> finByIds(String[] ids) {
         List<Rule> list = new ArrayList<>();
         if (ids != null) {
             for (String id : ids) {
