@@ -3,22 +3,22 @@ package ru.job4j.accident.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Rule;
+import ru.job4j.accident.repository.RuleJdbcTemplate;
 import ru.job4j.accident.repository.RuleMem;
-
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @AllArgsConstructor
 public class RuleService {
     private final RuleMem ruleMem;
+    private final RuleJdbcTemplate ruleJdbcTemplate;
 
-    public Map<Integer, Rule> findAll() {
-        return ruleMem.findAll();
+    public Collection<Rule> findAll() {
+        return ruleJdbcTemplate.findAllTemp();
     }
 
     public List<Rule> finByIds(String[] ids) {
-        return ruleMem.finByIds(ids);
+        return ruleJdbcTemplate.findByIdTemp(ids);
     }
 }

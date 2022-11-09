@@ -8,23 +8,21 @@ import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Repository
 @AllArgsConstructor
 public class AccidentJdbcTemplate {
     private final JdbcTemplate jdbc;
-    private final RuleJdbcTemplate ruleJdbcTemplate;
 
     public Accident saveTemp(Accident accident) {
-        jdbc.update("insert into accident (name, text, address, accident_type_id) "
-                        + "values (?, ?, ?, ?)",
+        jdbc.update("insert into accident (name, text, address, accident_type_id, rule_id) "
+                        + "values (?, ?, ?, ?, ?)",
                 accident.getName(),
                 accident.getText(),
                 accident.getAddress(),
-                accident.getType().getId());
+                accident.getType().getId(),
+                accident.getRules());
         return accident;
     }
 
@@ -37,17 +35,23 @@ public class AccidentJdbcTemplate {
                     accident.setText(rs.getString("text"));
                     accident.setAddress(rs.getString("address"));
                     accident.setType(jdbc.query("SELECT * FROM accident_type WHERE id=?",
-                            new Object[]{rs.getInt("accident_type_id")},
-                            new BeanPropertyRowMapper<>(AccidentType.class))
+                                    new Object[]{rs.getInt("accident_type_id")},
+                                    new BeanPropertyRowMapper<>(AccidentType.class))
                             .stream().findAny().orElse(null));
+                    accident.setRules(List.of(jdbc.query("SELECT * FROM rule WHERE id=?",
+                                    new Object[]{rs.getInt("rule_id")},
+                                    new BeanPropertyRowMapper<>(Rule.class))
+                            .stream().findAny().orElse(null)));
                     return accident;
                 });
     }
 
     public void updateTemp(Accident accident) {
-        jdbc.update("UPDATE accident SET name=?, text=?, address=?, accident_type_id=? WHERE id=?",
+        jdbc.update("UPDATE accident SET name=?, text=?, "
+                        + "address=?, accident_type_id=?, rule_id=? WHERE id=?",
                 accident.getName(), accident.getText(),
-                accident.getAddress(), accident.getType().getId(), accident.getId());
+                accident.getAddress(), accident.getType().getId(),
+                 accident.getRules(), accident.getId());
     }
 
     public Accident findByIdTemp(int id) {

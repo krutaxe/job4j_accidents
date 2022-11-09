@@ -28,7 +28,7 @@ public class AccidentController {
     @GetMapping("/formCreateAccident")
     public String viewCreateAccident(Model model) {
         Collection<AccidentType> types = accidentTypeService.findAll();
-        Map<Integer, Rule> rules = ruleService.findAll();
+        Collection<Rule> rules = ruleService.findAll();
         model.addAttribute("types", types);
         model.addAttribute("rules", rules);
         return "createAccident";
@@ -49,7 +49,7 @@ public class AccidentController {
     @GetMapping("/formUpdateAccident")
     public String update(@RequestParam(value = "id") int id, Model model) {
         Collection<AccidentType> types = accidentTypeService.findAll();
-        Map<Integer, Rule> rules = ruleService.findAll();
+        Collection<Rule> rules = ruleService.findAll();
         model.addAttribute("acc", accidentService.findById(id));
         model.addAttribute("types", types);
         model.addAttribute("rules", rules);

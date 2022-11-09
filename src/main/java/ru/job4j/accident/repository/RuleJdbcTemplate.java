@@ -27,11 +27,12 @@ public class RuleJdbcTemplate {
         List<Rule> list = new ArrayList<>();
         if (ids != null) {
             for (String id : ids) {
-                list.add(jdbc.query("SELECT * FROM rule WHERE id=?", new Object[]{ids},
+                list.add(jdbc.query("SELECT * FROM rule WHERE id=?",
+                        new Object[]{Integer.parseInt(id)},
                         new BeanPropertyRowMapper<>(Rule.class)).stream().findAny().orElse(null));
             }
         } else {
-            list.add(new Rule(0, "Статья отсутствует"));
+            list.add(new Rule(4, "Статья отсутствует"));
         }
         return list;
     }
