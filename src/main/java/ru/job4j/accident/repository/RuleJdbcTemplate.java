@@ -23,17 +23,10 @@ public class RuleJdbcTemplate {
                 new BeanPropertyRowMapper<>(Rule.class));
     }
 
-    public List<Rule> findByIdTemp(String[] ids) {
-        List<Rule> list = new ArrayList<>();
-        if (ids != null) {
-            for (String id : ids) {
-                list.add(jdbc.query("SELECT * FROM rule WHERE id=?",
-                        new Object[]{Integer.parseInt(id)},
-                        new BeanPropertyRowMapper<>(Rule.class)).stream().findAny().orElse(null));
-            }
-        } else {
-            list.add(new Rule(4, "Статья отсутствует"));
-        }
-        return list;
+    public List<Rule> findByIdTemp(int id) {
+        return jdbc.query("select r.name from accident a join accident_rule ar\n"
+               + "on a.id = ar.accident_id join rule r\n"
+               + "on ar.rule_id = r.id where a.id = ?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Rule.class));
     }
 }

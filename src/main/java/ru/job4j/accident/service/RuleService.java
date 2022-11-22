@@ -18,7 +18,7 @@ public class RuleService {
         return ruleJdbcTemplate.findAllTemp();
     }
 
-    public List<Rule> finByIds(String[] ids) {
-        return ruleJdbcTemplate.findByIdTemp(ids);
+    public List<Rule> finById(int id) {
+        return ruleJdbcTemplate.findByIdTemp(id);
     }
 }

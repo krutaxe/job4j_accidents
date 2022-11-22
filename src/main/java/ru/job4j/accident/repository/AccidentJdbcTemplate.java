@@ -8,6 +8,7 @@ import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -15,15 +16,22 @@ import java.util.List;
 public class AccidentJdbcTemplate {
     private final JdbcTemplate jdbc;
 
-    public Accident saveTemp(Accident accident) {
-        jdbc.update("insert into accident (name, text, address, accident_type_id, rule_id) "
-                        + "values (?, ?, ?, ?, ?)",
+    public Accident saveTemp(String[] ids, Accident accident) {
+        jdbc.update("insert into accident (name, text, address, accident_type_id) "
+                        + "values (?, ?, ?, ?)",
                 accident.getName(),
                 accident.getText(),
                 accident.getAddress(),
-                accident.getType().getId(),
-                accident.getRules());
+                accident.getType().getId());
         return accident;
+    }
+
+    public List<Integer> getIds(String[] ids) {
+        List<Integer> integerList = new ArrayList<>();
+        for (String i : ids) {
+            integerList.add(Integer.parseInt(i));
+        }
+        return integerList;
     }
 
     public List<Accident> findAllTemp() {
@@ -38,20 +46,22 @@ public class AccidentJdbcTemplate {
                                     new Object[]{rs.getInt("accident_type_id")},
                                     new BeanPropertyRowMapper<>(AccidentType.class))
                             .stream().findAny().orElse(null));
-                    accident.setRules(List.of(jdbc.query("SELECT * FROM rule WHERE id=?",
-                                    new Object[]{rs.getInt("rule_id")},
-                                    new BeanPropertyRowMapper<>(Rule.class))
-                            .stream().findAny().orElse(null)));
+                    accident.setRules(jdbc.query("select r.name from accident a "
+                                    + "join accident_rule ar\n"
+                                    + "on a.id = ar.accident_id join rule r\n"
+                                    + "on ar.rule_id = r.id where a.id=?",
+                            new Object[]{rs.getInt("id")},
+                            new BeanPropertyRowMapper<>(Rule.class)));
                     return accident;
                 });
     }
 
     public void updateTemp(Accident accident) {
         jdbc.update("UPDATE accident SET name=?, text=?, "
-                        + "address=?, accident_type_id=?, rule_id=? WHERE id=?",
+                        + "address=?, accident_type_id=? WHERE id=?",
                 accident.getName(), accident.getText(),
                 accident.getAddress(), accident.getType().getId(),
-                 accident.getRules(), accident.getId());
+                accident.getId());
     }
 
     public Accident findByIdTemp(int id) {
