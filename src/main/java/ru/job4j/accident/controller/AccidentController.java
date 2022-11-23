@@ -60,7 +60,7 @@ public class AccidentController {
         String[] ids = request.getParameterValues("rIds");
         accident.setType(type);
         accident.setRules(ruleService.finById(id));
-        accidentService.update(accident);
+        accidentService.update(ids, accident);
         return "redirect:/index";
     }
 }

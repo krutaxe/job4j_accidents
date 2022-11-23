@@ -25,8 +25,8 @@ public class AccidentService {
         accidentJdbcTemplate.saveTemp(ids, accident);
     }
 
-    public void update(Accident accident) {
-        accidentJdbcTemplate.updateTemp(accident);
+    public void update(String[] ids, Accident accident) {
+        accidentJdbcTemplate.updateTemp(ids, accident);
     }
 
     public Accident findById(int id) {
