@@ -5,7 +5,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.repository.AccidentHibernate;
-import ru.job4j.accident.repository.AccidentJdbcTemplate;
 import ru.job4j.accident.repository.AccidentMem;
 
 import java.util.Collection;
@@ -16,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AccidentService {
     private final AccidentMem accidentMem;
-    private final AccidentJdbcTemplate accidentJdbcTemplate;
+
     private final AccidentHibernate accidentHibernate;
 
     public List<Accident> findAllHib() {

@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.service.AccidentService;
-import ru.job4j.accident.service.RuleService;
-
-import javax.servlet.http.HttpServletRequest;
 
 @ThreadSafe
 @Controller
