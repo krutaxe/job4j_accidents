@@ -12,11 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Objects;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
-import ru.job4j.accident.model.Accident;
-
-import java.util.List;
 
 @Repository
 @AllArgsConstructor
@@ -51,53 +46,4 @@ public class AccidentJdbcTemplate {
         }
     }
 
-    public List<Accident> findAllTemp() {
-        return jdbc.query("SELECT * FROM accident ORDER BY id",
-    public Accident saveDb(Accident accident) {
-        jdbc.update("insert into accident (name) values (?)",
-                accident.getName());
-        return accident;
-    }
-
-    public List<Accident> getAllDb() {
-        return jdbc.query("select id, name from accident",
-                (rs, row) -> {
-                    Accident accident = new Accident();
-                    accident.setId(rs.getInt("id"));
-                    accident.setName(rs.getString("name"));
-                    accident.setText(rs.getString("text"));
-                    accident.setAddress(rs.getString("address"));
-                    accident.setType(jdbc.query("SELECT * FROM accident_type WHERE id=?",
-                                    new Object[]{rs.getInt("accident_type_id")},
-                                    new BeanPropertyRowMapper<>(AccidentType.class))
-                            .stream().findAny().orElse(null));
-                    accident.setRules(jdbc.query("SELECT r.name FROM accident a "
-                                    + "JOIN accident_rule ar\n"
-                                    + "ON a.id = ar.accident_id JOIN rule r\n"
-                                    + "ON ar.rule_id = r.id WHERE a.id=?",
-                            new Object[]{rs.getInt("id")},
-                            new BeanPropertyRowMapper<>(Rule.class)));
-                    return accident;
-                });
-    }
-
-    public void updateTemp(String[] ids, Accident accident) {
-        jdbc.update("UPDATE accident SET name=?, text=?, "
-                        + "address=?, accident_type_id=? WHERE id=?",
-                accident.getName(), accident.getText(),
-                accident.getAddress(), accident.getType().getId(),
-                accident.getId());
-        jdbc.update("DELETE FROM accident_rule WHERE accident_id=?",
-                accident.getId());
-        insertRule(ids, accident);
-    }
-
-    public Accident findByIdTemp(int id) {
-        return jdbc.query("SELECT * FROM accident WHERE id=?", new Object[]{id},
-                new BeanPropertyRowMapper<>(Accident.class)).stream().findAny().orElse(null);
-    }
-}
-                    return accident;
-                });
-    }
 }
