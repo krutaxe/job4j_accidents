@@ -12,12 +12,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AccidentTypeMem {
     private Map<Integer, AccidentType> types = new ConcurrentHashMap<>();
 
-    public AccidentTypeMem() {
-        types.put(1, new AccidentType(1, "Две машины"));
-        types.put(2, new AccidentType(2, "Машина и пешиход"));
-        types.put(3, new AccidentType(3, "Машина и велостпед"));
-    }
-
     public Collection<AccidentType> findAll() {
         return types.values();
     }

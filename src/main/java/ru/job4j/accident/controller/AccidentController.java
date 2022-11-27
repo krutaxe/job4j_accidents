@@ -59,7 +59,6 @@ public class AccidentController {
         AccidentType type = accidentTypeService.finById(id);
         String[] ids = request.getParameterValues("rIds");
         accident.setType(type);
-        accident.setRules(ruleService.finById(id));
         accidentService.update(ids, accident);
         return "redirect:/index";
     }

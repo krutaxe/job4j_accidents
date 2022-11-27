@@ -17,23 +17,6 @@ public class AccidentMem {
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
     private final AtomicInteger ids = new AtomicInteger(3);
 
-    public AccidentMem() {
-        List<Rule> ruleSet = List.of(
-                new Rule(1, "Статья. 1"),
-                new Rule(2, "Статья. 2"),
-                new Rule(3, "Статья. 3"));
-
-        accidents.put(1, new Accident(1, "Превышение скорости",
-                "Превышение на 30 км/ч", "г.Москва, ул.Ленина 18",
-                new AccidentType(1, "Две машины"), ruleSet));
-        accidents.put(2, new Accident(2, "Обгон",
-                "Обгон при знаке ОБГОН ЗАПРЕЩЁН", "г.Москва, ул Гагарина 40",
-                new AccidentType(2, "Машина и мотоцикл"), ruleSet));
-        accidents.put(3, new Accident(3, "Парковка",
-                "Парковка в запрещенном месте", "г.Москва, парк Победы",
-                new AccidentType(3, "Пешиход и машина"), ruleSet));
-    }
-
     public Collection<Accident> findAll() {
         return accidents.values();
     }
