@@ -16,6 +16,9 @@ import java.util.List;
 @AllArgsConstructor
 public class AccidentService {
     private final AccidentMem accidentMem;
+    private final AccidentJdbcTemplate accidentJdbcTemplate;
+    private final AccidentHibernate accidentHibernate;
+
 
     private final AccidentJdbcTemplate accidentJdbcTemplate;
 
@@ -25,16 +28,16 @@ public class AccidentService {
         return accidentMem.findAll();
     }
 
-    public void create(Accident accident) {
-        accidentMem.add(accident);
+    public void create(String[] ids, Accident accident) {
+        accidentHibernate.saveHib(ids, accident);
     }
 
-    public void update(Accident accident) {
-        accidentMem.update(accident);
+    public void update(String[] ids, Accident accident) {
+        accidentHibernate.updateHib(ids, accident);
     }
 
     public Accident findById(int id) {
-        return accidentMem.findById(id);
+        return accidentHibernate.findByIdHib(id);
     }
 
     public void createDb(Accident accident) {

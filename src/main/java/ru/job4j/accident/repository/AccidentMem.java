@@ -14,9 +14,6 @@ public class AccidentMem {
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
     private final AtomicInteger ids = new AtomicInteger(3);
 
-    public AccidentMem() {
-    }
-
     public Collection<Accident> findAll() {
         return accidents.values();
     }
