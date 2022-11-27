@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -20,6 +20,7 @@ public class Accident {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
@@ -27,7 +28,6 @@ public class Accident {
     private String text;
 
     private String address;
-
     @ManyToOne
     @JoinColumn(name = "accident_type_id", referencedColumnName = "id")
     private AccidentType type;

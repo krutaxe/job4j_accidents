@@ -1,6 +1,7 @@
 package ru.job4j.accident.repository;
 
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AccidentHibernate {
     private final SessionFactory sf;
-
+    
     public void saveHib(String[] ids, Accident accident) {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
@@ -65,6 +66,6 @@ public class AccidentHibernate {
     public Accident findByIdHib(int id) {
         try (Session session = sf.openSession()) {
             return session.get(Accident.class, id);
-        }
+
     }
 }

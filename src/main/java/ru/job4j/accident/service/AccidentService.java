@@ -19,8 +19,13 @@ public class AccidentService {
     private final AccidentJdbcTemplate accidentJdbcTemplate;
     private final AccidentHibernate accidentHibernate;
 
-    public List<Accident> findAllHib() {
-        return accidentHibernate.findAllHib();
+
+    private final AccidentJdbcTemplate accidentJdbcTemplate;
+
+    private final AccidentHibernate accidentHibernate;
+
+    public Collection<Accident> findAll() {
+        return accidentMem.findAll();
     }
 
     public void create(String[] ids, Accident accident) {
@@ -33,5 +38,17 @@ public class AccidentService {
 
     public Accident findById(int id) {
         return accidentHibernate.findByIdHib(id);
+    }
+
+    public void createDb(Accident accident) {
+        accidentJdbcTemplate.saveDb(accident);
+    }
+
+    public void createHb(Accident accident) {
+        accidentHibernate.saveHb(accident);
+    }
+
+    public List<Accident> getAllHb() {
+        return accidentHibernate.getAllHb();
     }
 }

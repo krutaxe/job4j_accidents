@@ -13,9 +13,8 @@ import javax.sql.DataSource;
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
 public class JdbcConfig {
-
     @Bean
-    public DataSource ds(@Value("${jdbc.driver}") String driver,
+    public DataSource ds(@Value("${jdbc.driver") String driver,
                          @Value("${jdbc.url}") String url,
                          @Value("${jdbc.username}") String username,
                          @Value("${jdbc.password}") String password) {
@@ -31,5 +30,4 @@ public class JdbcConfig {
     public JdbcTemplate jdbc(DataSource ds) {
         return new JdbcTemplate(ds);
     }
-
 }

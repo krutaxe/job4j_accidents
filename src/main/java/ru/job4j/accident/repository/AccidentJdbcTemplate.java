@@ -12,6 +12,11 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Objects;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+import ru.job4j.accident.model.Accident;
+
+import java.util.List;
 
 @Repository
 @AllArgsConstructor
@@ -48,6 +53,14 @@ public class AccidentJdbcTemplate {
 
     public List<Accident> findAllTemp() {
         return jdbc.query("SELECT * FROM accident ORDER BY id",
+    public Accident saveDb(Accident accident) {
+        jdbc.update("insert into accident (name) values (?)",
+                accident.getName());
+        return accident;
+    }
+
+    public List<Accident> getAllDb() {
+        return jdbc.query("select id, name from accident",
                 (rs, row) -> {
                     Accident accident = new Accident();
                     accident.setId(rs.getInt("id"));
@@ -82,5 +95,9 @@ public class AccidentJdbcTemplate {
     public Accident findByIdTemp(int id) {
         return jdbc.query("SELECT * FROM accident WHERE id=?", new Object[]{id},
                 new BeanPropertyRowMapper<>(Accident.class)).stream().findAny().orElse(null);
+    }
+}
+                    return accident;
+                });
     }
 }
