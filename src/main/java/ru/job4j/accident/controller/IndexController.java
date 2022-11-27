@@ -4,7 +4,12 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.service.AccidentService;
+import ru.job4j.accident.service.RuleService;
+
+import javax.servlet.http.HttpServletRequest;
 
 @ThreadSafe
 @Controller
@@ -17,8 +22,8 @@ public class IndexController {
     }
 
     @GetMapping("/index")
-    public String index(Model model) {
-        model.addAttribute("accidents", accidentService.findAll());
+    public String index(Model model, @ModelAttribute Accident accident) {
+        model.addAttribute("accidents", accidentService.findAllHib());
         return "index";
     }
 }
