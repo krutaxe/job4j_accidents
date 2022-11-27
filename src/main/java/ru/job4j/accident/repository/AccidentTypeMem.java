@@ -7,17 +7,10 @@ import ru.job4j.accident.model.AccidentType;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentTypeMem {
     private Map<Integer, AccidentType> types = new ConcurrentHashMap<>();
-
-    public AccidentTypeMem() {
-        types.put(1, new AccidentType(1, "Две машины"));
-        types.put(2, new AccidentType(2, "Машина и пешиход"));
-        types.put(3, new AccidentType(3, "Машина и велостпед"));
-    }
 
     public Collection<AccidentType> findAll() {
         return types.values();
