@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.repository.AccidentHibernate;
 import ru.job4j.accident.repository.AccidentMem;
-
-import java.util.Collection;
+import ru.job4j.accident.repository.AccidentRepository;
 import java.util.List;
 
 @ThreadSafe
@@ -18,19 +17,22 @@ public class AccidentService {
 
     private final AccidentHibernate accidentHibernate;
 
+    private final AccidentRepository accidentRepository;
+
     public List<Accident> findAll() {
-        return accidentHibernate.findAll();
+        return accidentRepository.findByOrderById();
     }
 
-    public void create(String[] ids, Accident accident) {
-        accidentHibernate.save(ids, accident);
+    public void create(Accident accident) {
+        accidentRepository.save(accident);
     }
 
-    public void update(String[] ids, Accident accident) {
-        accidentHibernate.update(ids, accident);
+    public void update(int id, Accident accident) {
+        accident.setId(id);
+        accidentRepository.save(accident);
     }
 
     public Accident findById(int id) {
-        return accidentHibernate.findById(id);
+        return accidentRepository.findById(id);
     }
 }

@@ -38,7 +38,8 @@ public class AccidentController {
         AccidentType type = accidentTypeService.finById(typeId);
         String[] ids = request.getParameterValues("rIds");
         accident.setType(type);
-        accidentService.create(ids, accident);
+        accident.setRules(ruleService.finById(ids));
+        accidentService.create(accident);
         return "redirect:/index";
     }
 
@@ -59,7 +60,8 @@ public class AccidentController {
         AccidentType type = accidentTypeService.finById(id);
         String[] ids = request.getParameterValues("rIds");
         accident.setType(type);
-        accidentService.update(ids, accident);
+        accident.setRules(ruleService.finById(ids));
+        accidentService.update(accident.getId(), accident);
         return "redirect:/index";
     }
 }

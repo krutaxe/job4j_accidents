@@ -6,7 +6,7 @@ import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.repository.AccidentTypeHibernate;
 import ru.job4j.accident.repository.AccidentTypeJdbcTemplate;
 import ru.job4j.accident.repository.AccidentTypeMem;
-
+import ru.job4j.accident.repository.AccidentTypeRepository;
 import java.util.Collection;
 
 @Service
@@ -17,11 +17,13 @@ public class AccidentTypeService {
     private final AccidentTypeJdbcTemplate accidentTypeJdbcTemplate;
     private final AccidentTypeHibernate accidentTypeHibernate;
 
+    private final AccidentTypeRepository accidentTypeRepository;
+
     public Collection<AccidentType> findAll() {
-        return accidentTypeHibernate.findAllHib();
+        return (Collection<AccidentType>) accidentTypeRepository.findAll();
     }
 
     public AccidentType finById(int id) {
-        return accidentTypeHibernate.findByIdHib(id);
+        return accidentTypeRepository.findById(id);
     }
 }
