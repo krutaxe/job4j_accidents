@@ -18,19 +18,19 @@ public class AccidentService {
 
     private final AccidentHibernate accidentHibernate;
 
-    public List<Accident> findAllHib() {
-        return accidentHibernate.findAllHib();
+    public List<Accident> findAll() {
+        return accidentHibernate.findAll();
     }
 
     public void create(String[] ids, Accident accident) {
-        accidentHibernate.saveHib(ids, accident);
+        accidentHibernate.save(ids, accident);
     }
 
     public void update(String[] ids, Accident accident) {
-        accidentHibernate.updateHib(ids, accident);
+        accidentHibernate.update(ids, accident);
     }
 
     public Accident findById(int id) {
-        return accidentHibernate.findByIdHib(id);
+        return accidentHibernate.findById(id);
     }
 }

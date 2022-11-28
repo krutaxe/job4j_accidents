@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -31,11 +32,11 @@ public class Accident {
     @JoinColumn(name = "accident_type_id", referencedColumnName = "id")
     private AccidentType type;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(
             name = "accident_rule",
             joinColumns = @JoinColumn(name = "accident_id"),
             inverseJoinColumns = @JoinColumn(name = "rule_id")
     )
-    private List<Rule> rules;
+    private List<Rule> rules = new ArrayList<>();
 }

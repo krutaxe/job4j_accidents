@@ -18,10 +18,10 @@ public class RuleService {
     private final RuleHib ruleHib;
 
     public Collection<Rule> findAll() {
-        return ruleHib.findAllHib();
+        return ruleHib.findAll();
     }
 
     public List<Rule> finById(int id) {
-        return ruleHib.findByIdHib(id);
+        return ruleHib.findById(id);
     }
 }

@@ -18,13 +18,13 @@ import java.util.List;
 public class RuleHib {
     private final SessionFactory sf;
 
-    public List<Rule> findAllHib() {
+    public List<Rule> findAll() {
         try (Session session = sf.openSession()) {
             return session.createQuery("FROM Rule", Rule.class).list();
         }
     }
 
-    public List<Rule> findByIdHib(int id) {
+    public List<Rule> findById(int id) {
         try (Session session = sf.openSession()) {
             Accident accident = session.get(Accident.class, id);
             return accident.getRules();

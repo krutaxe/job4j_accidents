@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.Rule;
-import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
 public class AccidentHibernate {
     private final SessionFactory sf;
 
-    public void saveHib(String[] ids, Accident accident) {
+    public void save(String[] ids, Accident accident) {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
             insertRule(ids, accident);
@@ -24,13 +23,15 @@ public class AccidentHibernate {
         }
     }
 
-    public List<Accident> findAllHib() {
+    public List<Accident> findAll() {
         try (Session session = sf.openSession()) {
-            return session.createQuery("FROM  Accident order by id", Accident.class).list();
+            return session.createQuery(
+                    "SELECT DISTINCT a FROM  Accident a "
+                           + "LEFT JOIN FETCH a.rules ORDER BY a.id", Accident.class).list();
         }
     }
 
-    public void insertRule(String[] ids, Accident accident) {
+    public List<Rule>  insertRule(String[] ids, Accident accident) {
         List<Rule> rules = new ArrayList<>();
         try (Session session = sf.openSession()) {
             session.beginTransaction();
@@ -43,26 +44,24 @@ public class AccidentHibernate {
             accident.setRules(rules);
             session.getTransaction().commit();
         }
+        return rules;
     }
 
-    public void updateHib(String[] ids, Accident accident) {
+    public void update(String[] ids, Accident accident) {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            Query query = session.createQuery("UPDATE Accident SET name = :nameParam, "
-                    +  "text = :textParam, address = :addressParam, type = :typeParam "
-                    + "WHERE id = : idParam");
-            query.setParameter("nameParam", accident.getName());
-            query.setParameter("textParam", accident.getText());
-            query.setParameter("addressParam", accident.getAddress());
-            query.setParameter("typeParam", accident.getType());
-            query.setParameter("idParam", accident.getId());
-            insertRule(ids, accident);
-            session.update(accident);
+            Accident accidentUpdate = session.get(Accident.class, accident.getId());
+            accidentUpdate.setName(accident.getName());
+            accidentUpdate.setText(accident.getText());
+            accidentUpdate.setAddress(accident.getAddress());
+            accidentUpdate.setType(accident.getType());
+            accidentUpdate.setRules(insertRule(ids, accident));
+            session.merge(accidentUpdate);
             session.getTransaction().commit();
         }
     }
 
-    public Accident findByIdHib(int id) {
+    public Accident findById(int id) {
         try (Session session = sf.openSession()) {
             return session.get(Accident.class, id);
         }

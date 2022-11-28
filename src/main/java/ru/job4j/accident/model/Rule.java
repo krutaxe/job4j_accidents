@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,7 +25,7 @@ public class Rule {
     private String name;
 
     @ManyToMany(mappedBy = "rules")
-    private List<Accident> accident;
+    private List<Accident> accident = new ArrayList<>();
 
     @Override
     public String toString() {
