@@ -20,12 +20,16 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link active" th:href="@{/index}">Главная</a>
         <a class="nav-item nav-link" th:href="@{/formCreateAccident}">Добавить Инцидент</a>
+        <a class="nav-item nav-link" th:href="@{/login}">Авторизация</a>
         <a class="nav-item nav-link" th:href="@{/reg}">Зарегистрироваться</a>
       </div>
     </div>
   </nav>
   <main class="form-signin">
     <h1 class="h3 mb-3 fw-normal">Регистрация</h1>
+    <div th:if="${not #lists.isEmpty(errorMessage)}" class="alert alert-danger" role="alert">
+      <span th:text="${errorMessage}"></span>
+    </div>
     <form th:action="@{/reg}" method="post">
       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       <div class="form-floating mb-3">
