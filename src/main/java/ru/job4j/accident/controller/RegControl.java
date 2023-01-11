@@ -43,14 +43,4 @@ public class RegControl {
         }
         return "login";
     }
-
-    @GetMapping("/fail")
-    public String fail() {
-        return "fail";
-    }
-
-    @GetMapping("/success")
-    public String success() {
-        return "success";
-    }
 }
