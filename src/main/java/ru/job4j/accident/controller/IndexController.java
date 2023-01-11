@@ -1,6 +1,5 @@
 package ru.job4j.accident.controller;
 
-import net.jcip.annotations.ThreadSafe;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.service.AccidentService;
 
-@ThreadSafe
 @Controller
 public class IndexController {
 

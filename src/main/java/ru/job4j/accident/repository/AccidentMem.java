@@ -1,6 +1,5 @@
 package ru.job4j.accident.repository;
 
-import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import java.util.Collection;
@@ -9,7 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
-@ThreadSafe
 public class AccidentMem {
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
     private final AtomicInteger ids = new AtomicInteger(3);

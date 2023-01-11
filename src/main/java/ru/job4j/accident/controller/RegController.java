@@ -14,7 +14,7 @@ import ru.job4j.accident.repository.UserRepository;
 
 @Controller
 @AllArgsConstructor
-public class RegControl {
+public class RegController {
     private final PasswordEncoder encoder;
     private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;
