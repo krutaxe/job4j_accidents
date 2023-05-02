@@ -51,3 +51,12 @@ java -jar job4j_accidents-1.0.jar
 ```
 mvn spring-boot:run
 ```
+
+### *Список всех инцидентов*
+![](img/accident1.jpg)
+
+### *Регистрация в системе*
+![](img/accident2.jpg)
+
+### *Добавление инцидента*
+![](img/accident3.jpg)
